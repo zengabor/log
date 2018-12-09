@@ -1,24 +1,27 @@
 package log
 
 import (
-	golog "log"
+	"fmt"
+	"log"
+	"os"
 )
 
-var coloredErrors = false
+var colors bool
 
 func Printf(format string, v ...interface{}) {
-	golog.Printf(format, v...)
+	log.Printf(format, v...)
 }
 
 func Errorf(format string, v ...interface{}) {
-	if coloredErrors {
+	if colors {
 		format = "\x1b[93;41m" + format + "\x1b[0m"
 	} else {
 		format = "!ERROR: " + format
 	}
 	Printf(format, v...)
+	fmt.Fprintf(os.Stderr, format, v...) // maybe Stackdriver will pick it up?
 }
 
-func SetColoredErrors(state bool) {
-	coloredErrors = state
+func EnableColors() {
+	colors = true
 }
