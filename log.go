@@ -16,7 +16,7 @@ func Errorf(format string, v ...interface{}) {
 	if colors {
 		format = "\x1b[93;41m" + format + "\x1b[0m"
 	} else {
-		format = "!ERROR: " + format
+		format = "[ERROR] " + format
 	}
 	Printf(format, v...)
 	fmt.Fprintf(os.Stderr, format, v...) // maybe Stackdriver will pick it up?
