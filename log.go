@@ -19,7 +19,9 @@ func Errorf(format string, v ...interface{}) {
 		format = "[ERROR] " + format
 	}
 	Printf(format, v...)
-	fmt.Fprintf(os.Stderr, format, v...) // maybe Stackdriver will pick it up?
+	if !colors {
+		fmt.Fprintf(os.Stderr, format, v...) // maybe Stackdriver will pick it up?
+	}
 }
 
 func EnableColors() {
