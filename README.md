@@ -1,2 +1,2 @@
 # log
-Logging
+Trivial basic logging, used for App Engine Flexible / development
