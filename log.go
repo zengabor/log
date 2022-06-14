@@ -6,10 +6,13 @@ import (
 	"os"
 )
 
-var colors bool
+var (
+	colors  bool
+	_prefix string
+)
 
 func Printf(format string, v ...interface{}) {
-	log.Printf(format, v...)
+	log.Printf(_prefix+format, v...)
 }
 
 func Errorf(format string, v ...interface{}) {
@@ -18,6 +21,7 @@ func Errorf(format string, v ...interface{}) {
 	} else {
 		format = "[ERROR] " + format
 	}
+	format = _prefix + format
 	Printf(format, v...)
 	if !colors {
 		fmt.Fprintf(os.Stderr, format, v...) // maybe Stackdriver will pick it up?
@@ -26,4 +30,8 @@ func Errorf(format string, v ...interface{}) {
 
 func EnableColors() {
 	colors = true
+}
+
+func SetPrefix(prefix string) {
+	_prefix = prefix
 }
